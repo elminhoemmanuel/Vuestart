@@ -1,44 +1,68 @@
 <template>
-  <h1>Hello {{ name }}</h1>
-  <h1 v-text="name"></h1>
-  <div v-html="html"></div>
-  <button :disabled="isDisabled">Dsiabled</button>
-  <h4 class="underline" :class="status">Status</h4>
-  <h4 :class=" isStriked ? 'slant': 'normal' ">Green and slant </h4>
-  <h4 :class=" [isStriked ? 'slant': 'normal', isGreen && 'green'] ">Green and slant array</h4>
-  <h4 :class="{
-    'slant':isStriked,
-    'green':isGreen,
+  <!-- <div>
+    <h3 v-if="num === 0">the number is zero</h3>
+    <h3 v-else-if="num < 0">the number is negative</h3>
+    <h3 v-else-if="num > 0">the number is positive</h3>
+    <h3 v-else>Not a number</h3>
+
+    <template v-if="display"> I am a good guy </template>
+    <h2 v-show="display">I am a good guy vshow</h2>
+  </div> -->
+  <div>
+    <!-- <h3 v-for=" ( name , index) in names" :key="name">{{ index+1 }} {{ name }}</h3> -->
+    <!-- <h3 v-for=" ( name , index) in fullNames" :key="name">{{ index+1 }} {{ name.first }} {{ name.last }}</h3> -->
+    <!-- <div v-for=" ( role , index) in roles" :key="role">
+      <h2>{{ index+1 }} {{role.title}}</h2>
+      <h4 v-for=" job  in role.jobs" :key="job"> {{ job }} </h4>
+    </div> -->
+
+    <!-- <div v-for="(value, key) in me " :key="value">
+      {{ key }} {{ value }}
+    </div> -->
+
+    <template v-for="name in names" :key="name">
+      <h2 v-if="name === 'Omale'">{{name}}</h2>
+    </template>
     
-  }">Green and slant object
-  </h4>
-  <h4 :style="styleObj">Style binding using object</h4>
-  <h4 :style="[ styleObj , styleObj2 ]">Style binding using array</h4>
+  </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  data () {
+  name: "App",
+  data() {
     return {
-      name:'Abobo',
-      html:`<h1> Abobo HTML </h1>`,
-      isDisabled: false,
-      status:'danger',
-      isStriked:false,
-      isGreen: true,
-      styleObj:{
-        color:'yellow',
-        fontWeight:'bold'
-      },
-      styleObj2:{
-        backgroundColor:'green',
-        padding: 4 + 'px'
+      num: 5,
+      display: true,
+      names:['Omale', 'Christy', 'Victoria', 'David'],
+      fullNames:[ {first:'Omale', last:"Amodu"}, 
+      {first:'Victoria', last:"Amodu"},
+      {first:'Christy', last:"Amodu"},
+      ],
+      roles:[
+        {
+          title:"Omale Amodu",
+          jobs:["Developer", "Engineer"]
+
+        },
+        {
+          title:"victoria Amodu",
+          jobs:["Fashion Designer", "Event Planner"]
+
+        },
+        {
+          title:"Christy Amodu",
+          jobs:["Reporter", "Presenter"]
+
+        }
+      ],
+      me:{
+        name:"Emmanuel Amodu",
+        job:'Developer'
       }
     };
   },
-}
+};
 </script>
 
 <style>
@@ -49,20 +73,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 20px;
-}
-.underline{
-  text-decoration: underline;
-}
-
-.danger{
-  color: red;
-}
-
-.slant{
-  text-decoration: line-through;
-}
-
-.green{
-  color: green;
 }
 </style>
