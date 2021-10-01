@@ -1,120 +1,16 @@
 <template>
-  <div>
-    <pre>
-      {{JSON.stringify(formValues, null, 2)}}
-    </pre>
-  </div>
-  <form @submit.prevent="submitForm">
-    <div>
-      <label for="name">Name</label>
-      <input type="text" id="name" v-model.trim.lazy="formValues.name">
-    </div>
+    <h2>Fullname - {{firstName}} {{lastName}}</h2>
+    <h2>Computed Fullname - {{fullName}} </h2>
+    <button @click="changeFullName">Change Fullname</button>
 
-    <div>
-      <label for="profile">Bio</label>
-      <textarea type="text" id="profile" v-model="formValues.profileSummary"></textarea>
-    </div>
 
-    <div>
-      <label for="country">Country</label>
-      <select id="country" v-model="formValues.country">
-        <option value="">Select a country</option>
-        <option value="india">India</option>
-        <option value="vietnam">Vietnam</option>
-        <option value="singapore">Singapore</option>
-      </select>
-    </div>
+    <h2>Total - {{items.reduce(( total , curr)=>(total = total + curr.price),0)}}</h2>
+    <button @click="items.push({id:4, title:'Game console', price:20})">Add Item</button>
+    <h2>Computed Total - {{ total }}</h2>
+    <h2>Method Total - {{ getTotal() }}</h2>
+    <input type="text" v-model="country" />
 
-    <div>
-      <label for="job-location">Job Location</label>
-      <select id="job-location" multiple v-model="formValues.jobLocation">
-        <option value="india">India</option>
-        <option value="vietnam">Vietnam</option>
-        <option value="singapore">Singapore</option>
-      </select>
-    </div>
-
-    <div>
-      <input 
-      type="checkbox" 
-      name="remoteWork" 
-      id="remoteWork" 
-      v-model="formValues.remoteWork"
-      true-value="yes"
-      false-value="no"
-      >
-      <label for="remoteWork">Open to working remotely?</label>
-    </div>
-
-    <div>
-      <label>Skill set</label>
-      <input
-        type="checkbox"
-        id="html"
-        value="html"
-        v-model="formValues.skillSet"
-      />
-      <label for="html">HTML</label>
-      <input
-        type="checkbox"
-        id="css"
-        value="css"
-        v-model="formValues.skillSet"
-      />
-      <label for="css">CSS</label>
-      <input
-        type="checkbox"
-        id="javascript"
-        value="javascript"
-        v-model="formValues.skillSet"
-      />
-      <label for="javascript">JavaScript</label>
-    </div>
-
-    <div>
-      <label>Years of Experience</label>
-      <input
-        type="radio"
-        id="0-2"
-        value="0-2"
-        v-model="formValues.yearsOfExperience"
-      />
-      <label for="0-2">0-2</label>
-      <input
-        type="radio"
-        id="3-5"
-        value="3-5"
-        v-model="formValues.yearsOfExperience"
-      />
-      <label for="3-5">3-5</label>
-      <input
-        type="radio"
-        id="6-10"
-        value="6-10"
-        v-model="formValues.yearsOfExperience"
-      />
-      <label for="6-10">5-10</label>
-      <input
-        type="radio"
-        id="10+"
-        value="10+"
-        v-model="formValues.yearsOfExperience"
-      />
-      <label for="10+">10+</label>
-    </div>
-
-    <div>
-      <label for="age">Age</label>
-      <input type="number" id="age" v-model.number="formValues.age" />
-    </div>
-
-    <div>
-      <button type="submit">Submit</button>
-    </div>
-
-  </form>
-  
-  
+    <h2 v-for="item in expensiveItems" :key="item.id">{{item.title}} - {{item.price}}</h2>
 </template>
 
 <script>
@@ -122,21 +18,54 @@ export default {
   name: "App",
   data() {
     return {
-      formValues: {
-        name:"",
-        profileSummary:"",
-        country:"",
-        jobLocation:"",
-        remoteWork: "no",
-        skillSet:[],
-        yearsOfExperience:[],
-        age:null
-      }
+      firstName: 'Bruce',
+      lastName: 'Wayne',
+      items: [
+        {
+          id: 1,
+          title: 'TV',
+          price: 100,
+        },
+        {
+          id: 2,
+          title: 'Phone',
+          price: 200,
+        },
+        {
+          id: 3,
+          title: 'Laptop',
+          price: 300,
+        },
+      ],
+      country:""
     };
   },
-  methods : {
-    submitForm(){
-      console.log("form values are", this.formValues)
+  methods: {
+    getTotal(){
+      console.log("Method total")
+      return this.items.reduce(( total , curr)=>(total = total + curr.price),0)
+    },
+    changeFullName(){
+      this.fullName = "Omale Amodu"
+    }
+  },
+  computed:{
+    fullName : {
+      get(){
+        return `${this.firstName} - ${this.lastName}`
+      },
+      set(value){
+        const names = value.split( ' ' );
+        this.firstName = names[0];
+        this.lastName = names[1];
+      }
+    },
+    total() {
+      console.log("Computed total")
+      return this.items.reduce(( total , curr)=>(total = total + curr.price),0)
+    },
+    expensiveItems(){
+      return this.items.filter(item => item.price > 100)
     }
   }
 };
@@ -150,31 +79,5 @@ export default {
   /* text-align: center; */
   color: #2c3e50;
   margin-top: 20px;
-  
-}
-
-label {
-  font-weight: bold;
-  display: flex;
-  margin-bottom: 5px;
-}
-input + label {
-  font-weight: bold;
-  display: inline-flex;
-  margin-right: 20px;
-}
-input[type='text'],
-textarea,
-select {
-  display: block;
-  width: 400px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 </style>
