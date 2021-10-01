@@ -1,56 +1,59 @@
 <template>
-    <!-- <Greet name="Abobo" />
-    <Greet name="Omale" />
-    <Greet name="Amodu" />
-    <Greet :name="name" :job="job" />
+    <!-- <Card >
+      <h2>Content of Card</h2>
+    </Card>
+    <Card >
+      <img src="https://picsum.photos/200" alt="">
+    </Card> -->
+    <!-- <Card>
+      <template v-slot:header>
+          <h3>Header</h3>
+      </template>
+      <template v-slot:default>
+          <img src="https://picsum.photos/200" alt="">
+      </template>
+      <template v-slot:footer>
+          <button>View</button>
+      </template>
+    </Card> -->
 
-    <Article id="my-article" title="My Life" :likes="50" :isPublished="false" /> -->
+    <NameList>
+      <template v-slot:default="slotProps">
+        {{slotProps.firstName}} {{slotProps.lastName}}
+      </template>
+    </NameList>
 
-    <!-- <ComponentC /> -->
-    <!-- <button @click="showPopup = true">Show Popup</button>
-    <Popup v-show="showPopup" @close="closePopup" /> -->
-    <Input v-model="name" />
+    <NameList>
+      <template v-slot:default="slotProps">
+        {{slotProps.lastName}} {{slotProps.firstName}}
+      </template>
+    </NameList>
+
+    <NameList>
+      <template v-slot:default="slotProps">
+         {{slotProps.lastName}}
+      </template>
+    </NameList>
+
 </template>
 
 <script>
-import Greet from "./components/Greet.vue"
-import Article from "./components/Article.vue"
-import ComponentC from "./components/ComponentC.vue"
-import Popup from "./components/Popup.vue"
-import Input from "./components/Input.vue"
+// import Card from "./components/Card.vue"
+import NameList from "./components/NameList.vue"
+
 
 export default {
   name: "App",
   components:{
-    Greet,
-    Article,
-    ComponentC,
-    Popup,
-    Input
+    // Card,
+    NameList,
   },
   data() {
     return {
-      // name:"Omale",
-      // job:"SDE",
-      // showPopup: false,
-      name:""
+      
     };
   },
-  methods: {
-    closePopup(gotten){
-      this.showPopup = false
-      console.log("Got", gotten)
-    }
-  },
-  computed: {},
-  watch: {
-    
-  },
-  provide(){
-    return {
-      username:"Omale"
-    }
-  }
+  
 };
 </script>
 
