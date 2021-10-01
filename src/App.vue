@@ -1,57 +1,56 @@
 <template>
-  <h2>Volume Tracker (0-20)</h2>
-  <h3>Current Volume - {{ volume }}</h3>
+    <!-- <Greet name="Abobo" />
+    <Greet name="Omale" />
+    <Greet name="Amodu" />
+    <Greet :name="name" :job="job" />
 
-  <div>
-    <button @click="volume += 1">Increase</button>
-  </div>
-  <div>
-    <button @click="volume -= 1">Decrease</button>
-  </div>
+    <Article id="my-article" title="My Life" :likes="50" :isPublished="false" /> -->
 
-  <input type="text" v-model="movie" />
-  <input type="text" v-model="movieInfo.title" />
-  <input type="text" v-model="movieInfo.actor" />
-
-  <button @click="movies.push('Supergirl')">Add Movie</button>
+    <!-- <ComponentC /> -->
+    <!-- <button @click="showPopup = true">Show Popup</button>
+    <Popup v-show="showPopup" @close="closePopup" /> -->
+    <Input v-model="name" />
 </template>
 
 <script>
+import Greet from "./components/Greet.vue"
+import Article from "./components/Article.vue"
+import ComponentC from "./components/ComponentC.vue"
+import Popup from "./components/Popup.vue"
+import Input from "./components/Input.vue"
+
 export default {
   name: "App",
+  components:{
+    Greet,
+    Article,
+    ComponentC,
+    Popup,
+    Input
+  },
   data() {
     return {
-      volume: 0,
-      movie: "",
-      movieInfo:{
-        title: "",
-        actor: "",
-      },
-      movies:["Batman", "Superman"]
+      // name:"Omale",
+      // job:"SDE",
+      // showPopup: false,
+      name:""
     };
   },
-  methods: {},
+  methods: {
+    closePopup(gotten){
+      this.showPopup = false
+      console.log("Got", gotten)
+    }
+  },
   computed: {},
   watch: {
-    volume(newValue, oldValue) {
-      if (newValue > oldValue && newValue === 10) {
-        alert("Its not good to listen to loud music");
-      }
-    },
-    movie: {
-      handler(newValue) {
-        console.log(`Calling API with movie name - ${newValue}`);
-      },
-      immediate: true
-    },
-    movieInfo: {
-      handler(newValue) {
-        console.log(`Calling API with movie name - ${newValue.title} and ${newValue.actor}`);
-      },
-      immediate: true,
-      deep:true
-    },
+    
   },
+  provide(){
+    return {
+      username:"Omale"
+    }
+  }
 };
 </script>
 
