@@ -1,20 +1,21 @@
 <template>
-  <!-- <PostsList /> -->
-  <!-- <TemplateRef /> -->
-  <ClickCounter />
+  <!-- <Data /> -->
+  <!-- <Demo /> -->
+  <Methods />
 </template>
 
 <script>
-// import PostsList from './components/PostsList.vue'
-// import TemplateRef from './components/TemplateRef.vue'
-import ClickCounter from './components/ClickCounter.vue'
+
+// import Data from './components/Data.vue'
+// import Demo from './components/Demo.vue'
+import Methods from './components/Methods.vue'
 
 export default {
   name: "App",
   components:{
-    //  PostsList, 
-    // TemplateRef,
-    ClickCounter,
+    // Data,
+    // Demo,
+    Methods,
   },
   data() {
     return {
